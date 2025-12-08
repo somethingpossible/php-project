@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['post_title'])) {
         // 2. 处理图片上传（如果有选择图片）
         if (!empty($_FILES['post_images']['name'][0])) {
             $total_files = count($_FILES['post_images']['name']);
-            
+
             // 检查上传图片数量
             if ($total_files > MAX_IMAGES) {
                 $message = "最多只能上传" . MAX_IMAGES . "张图片！";
@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['post_title'])) {
                 ]);
                 $new_post_id = $pdo->lastInsertId();
                 $message = "发帖成功！" . (count($uploaded_images) > 0 ? "（成功上传" . count($uploaded_images) . "张图片）" : "");
-                
+
                 // 跳转到新帖子详情页
                 header("Location: forum_post.php?id=$new_post_id&message=" . urlencode($message));
                 exit;
@@ -162,12 +162,14 @@ $message = $_GET['message'] ?? $message;
 
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>乒乓论坛 - 乒乓球馆预约系统</title>
     <link rel="stylesheet" href="../css/forum.css" type="text/css">
 </head>
+
 <body>
     <div class="container">
         <!-- 头部导航（不变） -->
@@ -197,22 +199,22 @@ $message = $_GET['message'] ?? $message;
             <form method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="post_title">帖子标题</label>
-                    <input type="text" id="post_title" name="post_title" required 
-                           placeholder="请输入帖子标题（如：乒乓球拍推荐、发球技巧交流等）"
-                           value="<?= htmlspecialchars($_POST['post_title'] ?? '') ?>">
+                    <input type="text" id="post_title" name="post_title" required
+                        placeholder="请输入帖子标题（如：乒乓球拍推荐、发球技巧交流等）"
+                        value="<?= htmlspecialchars($_POST['post_title'] ?? '') ?>">
                 </div>
                 <div class="form-group">
                     <label for="post_content">帖子内容</label>
-                    <textarea id="post_content" name="post_content" required 
-                              placeholder="请详细描述你的内容..."><?= htmlspecialchars($_POST['post_content'] ?? '') ?></textarea>
+                    <textarea id="post_content" name="post_content" required
+                        placeholder="请详细描述你的内容..."><?= htmlspecialchars($_POST['post_content'] ?? '') ?></textarea>
                 </div>
 
                 <!-- 新增图片上传区域 -->
                 <div class="upload-container">
                     <div class="upload-title">上传图片（可选，最多<?= MAX_IMAGES ?>张，单张≤<?= MAX_FILE_SIZE / 1024 / 1024 ?>MB）</div>
                     <label class="upload-box">
-                        <input type="file" name="post_images[]" id="post_images" multiple 
-                               accept="image/jpeg,image/png,image/gif,image/webp" style="display: none;">
+                        <input type="file" name="post_images[]" id="post_images" multiple
+                            accept="image/jpeg,image/png,image/gif,image/webp" style="display: none;">
                         <div class="upload-icon">📷</div>
                         <div class="upload-tip">点击或拖拽图片到此处上传</div>
                         <div class="upload-limit">支持jpg、png、gif、webp格式</div>
@@ -249,12 +251,13 @@ $message = $_GET['message'] ?? $message;
                         <div class="post-excerpt">
                             <?= nl2br(htmlspecialchars($post['content'])) ?>
                         </div>
+                        
                         <!-- 帖子图片预览（列表页只显示第一张图） -->
                         <?php if (!empty($post['images_arr'])): ?>
                             <div class="post-images" style="margin-top: 10px;">
                                 <div class="post-image-item">
-                                    <img src="../<?= htmlspecialchars($post['images_arr'][0]) ?>" 
-                                         alt="帖子图片" title="点击查看完整帖子和所有图片">
+                                    <img src="../<?= htmlspecialchars($post['images_arr'][0]) ?>"
+                                        alt="帖子图片" title="点击查看完整帖子和所有图片">
                                 </div>
                                 <?php if (count($post['images_arr']) > 1): ?>
                                     <div style="line-height: 180px; color: #666; margin-left: 10px;">
@@ -263,6 +266,11 @@ $message = $_GET['message'] ?? $message;
                                 <?php endif; ?>
                             </div>
                         <?php endif; ?>
+                        <!-- 点赞按钮 -->
+                        <div class="like-btn" data-post-id="<?= $post['id'] ?>">
+                            <span class="like-icon">❤️</span>
+                            <span class="like-count"><?= $post['like_count'] ?></span>
+                        </div>
                         <!-- 查看详情按钮（不变） -->
                         <a href="forum_post.php?id=<?= $post['id'] ?>" class="btn btn-sm">查看详情</a>
                     </div>
@@ -322,11 +330,11 @@ $message = $_GET['message'] ?? $message;
                 reader.onload = function(event) {
                     const previewItem = document.createElement('div');
                     previewItem.className = 'preview-image-item';
-                    
+
                     const img = document.createElement('img');
                     img.src = event.target.result;
                     img.alt = '预览图片' + (index + 1);
-                    
+
                     const removeBtn = document.createElement('div');
                     removeBtn.className = 'preview-image-remove';
                     removeBtn.textContent = '×';
@@ -334,7 +342,7 @@ $message = $_GET['message'] ?? $message;
                         previewItem.remove();
                         // 这里仅移除预览，实际文件仍会上传（如需完全移除需复杂处理，简化版直接提交选中文件）
                     };
-                    
+
                     previewItem.appendChild(img);
                     previewItem.appendChild(removeBtn);
                     previewContainer.appendChild(previewItem);
@@ -360,7 +368,7 @@ $message = $_GET['message'] ?? $message;
             e.preventDefault();
             uploadBox.style.borderColor = '#ddd';
             uploadBox.style.backgroundColor = 'transparent';
-            
+
             const files = e.dataTransfer.files;
             if (files.length > 0) {
                 fileInput.files = files;
@@ -369,6 +377,48 @@ $message = $_GET['message'] ?? $message;
                 fileInput.dispatchEvent(event);
             }
         });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // 初始化已点赞状态（列表页简化版，不实时查询，详情页会准确显示）
+            const likeBtns = document.querySelectorAll('.like-btn');
+            likeBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const postId = this.getAttribute('data-post-id');
+                    const likeIcon = this.querySelector('.like-icon');
+                    const likeCount = this.querySelector('.like-count');
+
+                    // 发送AJAX请求
+                    fetch('forum_like.php', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/x-www-form-urlencoded',
+                            },
+                            body: 'post_id=' + postId
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.code === 1) {
+                                // 更新按钮状态和点赞数
+                                if (data.is_liked === 1) {
+                                    btn.classList.add('liked');
+                                    likeIcon.textContent = '❤️';
+                                } else {
+                                    btn.classList.remove('liked');
+                                    likeIcon.textContent = '❤️';
+                                }
+                                likeCount.textContent = data.like_count;
+                            } else {
+                                alert(data.msg);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('点赞请求失败：', error);
+                            alert('网络错误，点赞失败！');
+                        });
+                });
+            });
+        });
     </script>
 </body>
+
 </html>

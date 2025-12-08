@@ -52,6 +52,7 @@
                         <td><a id="three" href="files/two.html" target="_blank">国乒历史</a></td>
                         <td><a id="four" href="files/three.html" target="_blank">国与乒乓</a></td>
                         <td><a id="five" href="files/four.html" target="_blank">基础教程</a></td>
+                        <td><a id="six" href="php/forum.php" target="_blank">乒乓论坛</a></td>
                     </tr>
                 </table>
             </div>
