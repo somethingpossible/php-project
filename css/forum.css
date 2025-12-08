@@ -323,3 +323,122 @@ textarea {
         margin: 0 2px;
     }
 }
+
+/* 帖子图片样式 */
+.post-images {
+    margin: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.post-image-item {
+    width: calc(33.333% - 10px);
+    height: 180px;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+.post-image-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.post-image-item img:hover {
+    transform: scale(1.05);
+}
+
+/* 上传图片区域样式 */
+.upload-container {
+    margin-bottom: 20px;
+}
+
+.upload-title {
+    margin-bottom: 10px;
+    color: #666;
+    font-weight: bold;
+}
+
+.upload-box {
+    border: 2px dashed #ddd;
+    border-radius: 4px;
+    padding: 30px;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.upload-box:hover {
+    border-color: #007bff;
+}
+
+.upload-icon {
+    font-size: 36px;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.upload-tip {
+    color: #666;
+    margin-bottom: 10px;
+}
+
+.upload-limit {
+    color: #999;
+    font-size: 13px;
+}
+
+/* 预览已选择的图片 */
+.preview-images {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.preview-image-item {
+    width: 100px;
+    height: 100px;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+}
+
+.preview-image-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.preview-image-remove {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 24px;
+    height: 24px;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 24px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+/* 响应式调整图片宽度 */
+@media (max-width: 768px) {
+    .post-image-item {
+        width: calc(50% - 7px);
+        height: 150px;
+    }
+}
+
+@media (max-width: 480px) {
+    .post-image-item {
+        width: 100%;
+        height: 120px;
+    }
+}

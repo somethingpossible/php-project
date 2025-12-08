@@ -14,14 +14,14 @@ $post = null;
 // 连接数据库
 require __DIR__ . '/db_connect.php';
 
-// 验证帖子ID
+// 验证帖子ID（不变）
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     header("Location: forum.php?message=" . urlencode("无效的帖子ID！"));
     exit;
 }
 $post_id = (int)$_GET['id'];
 
-// 处理评论提交
+// 处理评论提交（不变）
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment_content'])) {
     $content = trim($_POST['comment_content']);
 
@@ -60,7 +60,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment_content'])) {
 
             $pdo->commit();
             $message = "评论成功！";
-            // 刷新页面，避免重复提交
             header("Location: forum_post.php?id=$post_id&message=" . urlencode($message));
             exit;
         } catch (Exception $e) {
@@ -70,9 +69,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['comment_content'])) {
     }
 }
 
-// 查询帖子详情
+// 查询帖子详情（新增查询images字段）
 $stmt = $pdo->prepare("
-    SELECT id, title, username, content, created_at, updated_at, comment_count, user_id AS post_user_id
+    SELECT id, title, username, content, images, created_at, updated_at, comment_count, user_id AS post_user_id
     FROM forum_posts
     WHERE id = :post_id
 ");
@@ -84,7 +83,10 @@ if (!$post) {
     exit;
 }
 
-// 查询该帖子的所有评论
+// 处理帖子图片（将字符串转为数组）
+$post['images_arr'] = !empty($post['images']) ? explode(',', $post['images']) : [];
+
+// 查询该帖子的所有评论（不变）
 $stmt = $pdo->prepare("
     SELECT id, username, content, created_at, user_id
     FROM forum_comments
@@ -94,7 +96,7 @@ $stmt = $pdo->prepare("
 $stmt->execute([':post_id' => $post_id]);
 $comments = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// 处理提示信息
+// 处理提示信息（不变）
 $message = $_GET['message'] ?? $message;
 ?>
 
@@ -104,11 +106,11 @@ $message = $_GET['message'] ?? $message;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($post['title']) ?> - 乒乓论坛</title>
-    <!-- 引入独立CSS文件 -->
     <link rel="stylesheet" href="../css/forum.css" type="text/css">
 </head>
 <body>
     <div class="container">
+        <!-- 头部导航（不变） -->
         <div class="header">
             <h1>乒乓论坛</h1>
             <div class="user-info">
@@ -122,14 +124,14 @@ $message = $_GET['message'] ?? $message;
             </div>
         </div>
 
-        <!-- 提示信息 -->
+        <!-- 提示信息（不变） -->
         <?php if ($message): ?>
             <div class="message <?php echo strpos($message, '成功') !== false ? 'success' : 'error'; ?>">
                 <?= htmlspecialchars($message) ?>
             </div>
         <?php endif; ?>
 
-        <!-- 帖子详情 -->
+        <!-- 帖子详情（新增完整图片显示） -->
         <div class="card post-detail">
             <h2><?= htmlspecialchars($post['title']) ?></h2>
             <div class="post-meta">
@@ -137,7 +139,23 @@ $message = $_GET['message'] ?? $message;
                 <span>发布时间：<?= date('Y-m-d H:i:s', strtotime($post['created_at'])) ?></span>
                 <span>最后更新：<?= date('Y-m-d H:i:s', strtotime($post['updated_at'])) ?></span>
                 <span>评论数：<?= $post['comment_count'] ?></span>
+                <?php if (!empty($post['images_arr'])): ?>
+                    <span>图片：<?= count($post['images_arr']) ?>张</span>
+                <?php endif; ?>
             </div>
+
+            <!-- 新增：显示所有帖子图片 -->
+            <?php if (!empty($post['images_arr'])): ?>
+                <div class="post-images">
+                    <?php foreach ($post['images_arr'] as $img_path): ?>
+                        <div class="post-image-item">
+                            <img src="../<?= htmlspecialchars($img_path) ?>" 
+                                 alt="帖子图片" title="点击查看原图">
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
+
             <div class="post-content">
                 <?= nl2br(htmlspecialchars($post['content'])) ?>
             </div>
@@ -146,11 +164,10 @@ $message = $_GET['message'] ?? $message;
             </div>
         </div>
 
-        <!-- 评论区 -->
+        <!-- 评论区（不变） -->
         <div class="card comment-section">
             <h2>评论区（共 <?= count($comments) ?> 条评论）</h2>
 
-            <!-- 评论列表 -->
             <div class="comment-list">
                 <?php if (empty($comments)): ?>
                     <p style="color: #666; margin-bottom: 20px;">暂无评论，快来抢沙发！</p>
@@ -174,7 +191,6 @@ $message = $_GET['message'] ?? $message;
                 <?php endif; ?>
             </div>
 
-            <!-- 发表评论表单 -->
             <div class="comment-form">
                 <h3>发表你的评论</h3>
                 <form method="POST">
