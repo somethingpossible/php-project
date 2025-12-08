@@ -1,0 +1,136 @@
+<?php
+    // require 'indexs.html';
+    require 'php/db_connect.php';
+    // require __DIR__ . '/database/users.php';
+?>
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>一起来乒乓</title>
+        <link rel="stylesheet" href="./index.css" type="text/css">
+        <link rel="stylesheet" href="css/log.css" type="text/css">
+     </head>
+    <body>
+        <div class="all">
+            <div class="top">
+                <div class="words">
+                    <div class="image"> <img src="images/main/icon.jpg" height="80px" ></div>
+                    <p id="title">一起来乒乓</p>
+                    <p id="english">PLAY TABLE TENNIS TOGETHER</p>
+                </div>
+                <!-- <div class="icon"><a class="icon_" href="files/five.html" target="_blank">报名参训</a></div> -->
+                <div class="icon"><a class="icon_" href="php/appointment.php" target="_blank">报名参训</a></div>
+                <!-- <div class="top-right-nav">
+                    <a href="page1.html">页面1</a>
+                    <a href="page2.html">页面2</a>
+                    <a href="page3.html">页面3</a> -->
+                <!-- </div> -->
+                <!-- website website/index.html 中导航区域 -->
+                <div class="top-log">
+                    <?php
+                    // 启动Session(确保在所有页面顶部启动)
+                    session_start();
+                    if (isset($_SESSION['user_id'])) {
+                        // 已登录状态
+                        echo '<span>欢迎，' . $_SESSION['username'] . '</span>';
+                        echo '<a href="php/logout.php">退出登录</a>';
+                    } else {
+                        // 未登录状态
+                        echo '<a href="php/login.php">登录</a>';
+                        echo '<a href="files/register.html">注册</a>';
+                    }
+                    ?>
+                </div>
+            </div>
+            <div class="center">
+                <table class="menu">
+                    <tr>
+                        <td align="center"><a id="one" href="index.html" target="_self">首页</a></td>
+                        <td><a id="two" href="files/one.html" target="_blank">代表人物</a></td>
+                        <td><a id="three" href="files/two.html" target="_blank">国乒历史</a></td>
+                        <td><a id="four" href="files/three.html" target="_blank">国与乒乓</a></td>
+                        <td><a id="five" href="files/four.html" target="_blank">基础教程</a></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="core">
+                <img src="images/main/core.jpg" height="300px" class="core-img">
+                <div class="content-border">
+                    <div class="content">
+                        <div class="first">
+                        <h class="first-h">全国乒乓一盘棋 共商备战巴黎奥运会</h>
+                        <p class="first-p">为发挥举国体制优势,群策群力决胜巴黎奥运会,从11月22日至24日,中国乒乓球队备战巴黎奥运会研讨会在国乒成都训练基地举行。</p>
+                        </div>
+                        <div class="second">
+                            <h class="h2">国乒冬训誓师，刘国梁：吹响巴黎奥运冲锋号</h>
+                            <p>11月19日晚,国乒全员在京举行冬训誓师大会。秘书长何潇向全队传达了国家体育总局局长高志丹对2023年冬训备战的动员讲话。</p>
+                        </div>
+                        <div class="third">
+                            <ul>
+                                <li>世界青少年乒乓球锦标赛：中国队收获团体三项冠军</li>
+                                <li>WTT太原站 | 梁靖崑、王曼昱单打登顶，国乒包揽五冠</li>
+                                <li>成都混合团体世界杯引入个人世界排名积分</li>
+                                <li>第一届全国学生（青年）运动会乒乓球项目（校园组）在广西玉林开赛</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bg">
+                <div class="cores">
+                    <div class="h3"><h>&nbsp;&nbsp;&nbsp;浅谈乒乓</h></div>  <br>
+                    <div class="cores_one">
+                        <img src="images/main/left.jpg" height="400px">
+                        <div class="cores_one_right">
+                            <div id="content">
+                                <span id="one"><em>乒乓球被人们称为“国球”，形象地展示了它在全民健身中的重要地位——乒乓球已经成为人们日常生活中不可或缺的运动休闲项目。 乒乓球运动适合各个年龄段爱好者，小小的白球，要活跃在球台上，须眼明手快，脚步还要跟得上，充满趣味性和挑战性。 乒乓球还是一项文雅的运动，它没有肢体接触，而且不易受伤。</em></span><br><br>
+                                <span id="two"><i>乒乓球健身炼体、健脑益智、对近视由治愈效果、安全系数高、充满乐趣、锻炼身体协调能力，可以改善人的精神面貌，是极受欢迎的运动。</i></span><br><br>
+                                <span id="three"><i>在乒乓球运动过程中，要求练习者不断移动与还原，涉及的各肌肉群要经过成千上万次的锻炼，肌肉的主动收缩与舒张会促进血管中的血液流动，输送更多的氧气和养料，久而久之，能提高肌肉的质量，促进肌肉收缩的速度力量大大增强，由于对方来球变化无常，要求练习者判断快、启动快、脚步移动快、出手速度快、动作还原快及战术决策快等，这就必须在大脑的指挥下，通过全身肌肉的协调配合才能完成，从而增强大脑的控制功能及肌肉配合完成工作的协调功能，增加人体的协调性。</i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="cores_two">
+                        <div class="h4"><h>&nbsp;&nbsp;&nbsp;乒乓时刻</h></div>
+                        <div class="cores_two_images">
+                            <img class="one" src="images/main/four.jpg" width="25%">
+                            <img class="two" src="images/main/five.png" width="25%">
+                            <img class="three" src="images/main/six.jpg" width="25%"><br>
+                            <img class="four" src="images/main/one.jpg" width="25%">
+                            <img class="five" src="images/main/two.jpg" width="25%">
+                            <img class="six" src="images/main/three.jpg" width="25%">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="foot">
+            <div id="one1">
+               <img src="images/foot/地址.png" class="image1" height="70px">
+               <div class="p1">
+                   <p class="tilte1">Address</address></p>
+                   <P class="content1">Shijiazhuang City in Hebei Province </P>
+               </div>
+            </div>
+            <div id="two2">
+               <img src="images/foot/邮件.png" height="70px" class="image2">
+               <div class="p2">
+                  <p class="title2">Email</p>
+                  <p class="content2">12345678@qq.com</p>
+               </div>
+            </div>
+            <div id="three3">
+               <img src="images/foot/电话.png" height="70px" class="image3">
+               <div class="p3">
+                  <p class="title3">Phone Number</p>
+                  <p class="content3">17896364533</p>
+               </div>
+            </div>
+            <hr>
+            <div id="four4">
+               <p><span id="zz">producer:jack<br>major:Network engineering</span><br>institute:School of Information Technologyinstitute<br>School of Information Technologyschool:Heibei University of Economics and Business</p>
+            </div>
+        </div>
+    </body>
+</html>

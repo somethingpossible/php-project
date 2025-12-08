@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>报名参训</title>
+        <link rel="stylesheet" href="../css/register.css" type="text/css">
+    </head>
+    <body>
+        <div class="all">
+            <div class="body">
+                 <a href="../index.html"> <img src="../images/five/icon.png" class="icon"></a>
+                 <div class="title"><h1>乐动球馆注册</h1></div>
+            <div class="form">
+                <form action="../php/register.php" method="post" name="乒乓球训练报名">
+                  &nbsp;&nbsp;  <label for="username">姓名:</label>   <input type="text"  name="username" id="name"  /></br>
+                  &nbsp;&nbsp;  <label for="password">密码:</label>
+                  <input type="password" name="password" placeholder="密码" required><br>
+                  <input type="password" name="confirm_password" placeholder="确认密码" id="check" required><br>
+                  &nbsp;&nbsp;  性别：   <input type="radio"  name="sex" checked="checked" value="male" id="nan" /> <label for="nan">男</label>
+                                         <input type="radio"  name="sex" value="female" id="nv" /> <label for="nv">女 <br></label>
+                  &nbsp;&nbsp;  <label for="age">年龄:</label>    <input type="text" maxlength="3" name="age" id="age"  /><br>
+                  &nbsp;&nbsp;  <label for="approach">联系方式:</label> <input type="text" name="approach" id="approach"> <input type="reset"> <br><br>
+                <div class="submit">
+                  <input type="submit">
+                </div>
+                <!-- <br> -->
+                </form>
+            </div>
+            </div>
+        </div>
+    </body>
+</html>

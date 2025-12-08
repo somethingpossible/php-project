@@ -1,0 +1,63 @@
+   /*男双代表*/
+
+*{margin: 0;padding: 0;}
+.all{
+    width: 100%;
+    height: 900px;
+    background-color: rgb(173, 243, 243);
+}
+.top{
+   width: 100%;
+   height: 200px;
+}
+.icon{
+   width: 180px;
+   height: 160px;
+   margin: 12.5px auto;
+   border-radius: 50%;
+   border: 2.5px solid #ccc;
+   background-image: url(../images/icon/icon_bg.jpg);
+   background-size: 150px;
+   position: relative;
+   top: 3%;
+   right: 35%;
+}
+.sheet{
+width: 112.5px;
+height:131.25px;
+position: relative;
+top: 19px;
+left: 18%;
+}
+#events{
+text-align: center;
+height: 17.2875px;
+font-size: 15px;
+letter-spacing: 0.6em;
+} 
+a{text-decoration: none;
+  color: black;}
+a:hover{color: blue;}
+.title{
+   font-family: 宋体;
+   letter-spacing: 0.5em;
+   font-size: 50px;
+   position: relative;
+   bottom: 100px;
+   left: 45%;
+}
+.content{width: 90%;height: 600px;margin-left: 5%;background-color: white;}
+p{text-align: center;}
+.one,.two,.three{float: left;margin-top: 40px;margin-left: 6%;}
+.four,.five{float: left;margin-top: 40px;margin-left: 8%;position: relative;left: 13%;}
+.one{width: 25%;}
+.two{width: 25%;}
+.three{width: 25%;}
+.four{width: 25%;}
+.five{width: 25%;}
+.back{
+   font-size: 40px;
+   clear: both;
+   margin-top: 10px;
+   text-align: center;
+}

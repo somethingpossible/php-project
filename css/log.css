@@ -1,0 +1,13 @@
+.user-status {
+    float: right;
+    margin-top: 10px;
+    color: #333;
+}
+.user-status a {
+    margin-left: 15px;
+    color: #007bff;
+    text-decoration: none;
+}
+.user-status a:hover {
+    text-decoration: underline;
+}

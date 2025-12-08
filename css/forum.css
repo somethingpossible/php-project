@@ -1,0 +1,325 @@
+/* forum.css - 乒乓论坛专用样式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f5f5f5;
+    line-height: 1.6;
+}
+
+.container {
+    width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.header {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.header h1 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 28px;
+}
+
+.user-info {
+    color: #666;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.nav {
+    margin-bottom: 20px;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.nav a {
+    margin: 0 15px;
+    color: #007bff;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.nav a:hover {
+    text-decoration: underline;
+}
+
+.nav a.active {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+.card {
+    background: white;
+    border-radius: 8px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.card h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 22px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #666;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+}
+
+input[type="text"]:focus,
+textarea:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.1);
+}
+
+textarea {
+    min-height: 150px;
+    resize: vertical;
+    line-height: 1.8;
+}
+
+.btn {
+    padding: 12px 24px;
+    background: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background 0.3s;
+}
+
+.btn:hover {
+    background: #0056b3;
+}
+
+.btn-sm {
+    padding: 8px 16px;
+    font-size: 14px;
+}
+
+.message {
+    padding: 15px 20px;
+    margin-bottom: 25px;
+    border-radius: 4px;
+    font-size: 15px;
+}
+
+.success {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.error {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* 列表页样式 */
+.post-list {
+    margin-top: 30px;
+}
+
+.post-item {
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+    transition: background 0.3s;
+}
+
+.post-item:hover {
+    background: #fafafa;
+}
+
+.post-item:last-child {
+    border-bottom: none;
+}
+
+.post-title {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.post-title a {
+    color: #333;
+    text-decoration: none;
+    display: block;
+}
+
+.post-title a:hover {
+    color: #007bff;
+}
+
+.post-meta {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+.post-meta span {
+    margin-right: 20px;
+    display: inline-block;
+}
+
+.post-excerpt {
+    color: #666;
+    margin-bottom: 15px;
+    font-size: 15px;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* 详情页样式 */
+.post-detail {
+    margin-bottom: 30px;
+}
+
+.post-content {
+    color: #333;
+    font-size: 16px;
+    line-height: 2;
+    margin: 25px 0;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 4px;
+}
+
+.post-actions {
+    margin-bottom: 30px;
+    text-align: right;
+}
+
+/* 评论区样式 */
+.comment-section {
+    margin-top: 30px;
+}
+
+.comment-list {
+    margin-bottom: 30px;
+}
+
+.comment-item {
+    padding: 15px;
+    background: #f9f9f9;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    border-left: 3px solid #007bff;
+}
+
+.comment-meta {
+    color: #666;
+    font-size: 13px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.comment-content {
+    color: #333;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+/* 分页样式 */
+.pagination {
+    text-align: center;
+    margin: 40px 0;
+}
+
+.pagination a,
+.pagination span {
+    display: inline-block;
+    padding: 10px 16px;
+    margin: 0 4px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-decoration: none;
+    color: #333;
+    font-size: 15px;
+    transition: all 0.3s;
+}
+
+.pagination a:hover {
+    background: #f5f5f5;
+    border-color: #007bff;
+    color: #007bff;
+}
+
+.pagination .current {
+    background: #007bff;
+    color: white;
+    border-color: #007bff;
+    font-weight: bold;
+}
+
+.pagination .disabled {
+    color: #999;
+    cursor: not-allowed;
+    background: #f9f9f9;
+}
+
+.pagination .disabled:hover {
+    background: #f9f9f9;
+    border-color: #ddd;
+    color: #999;
+}
+
+/* 响应式调整 */
+@media (max-width: 1024px) {
+    .container {
+        width: 90%;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav a {
+        margin: 0 8px;
+        font-size: 14px;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    .post-title {
+        font-size: 18px;
+    }
+
+    .pagination a,
+    .pagination span {
+        padding: 8px 12px;
+        margin: 0 2px;
+    }
+}

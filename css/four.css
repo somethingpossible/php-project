@@ -1,0 +1,108 @@
+  /*基础教程*/
+
+.all{
+    width: 100%;
+}
+.top{
+    height: 200px;
+    width: 100%;
+    background-color: white;
+}
+.image{position: relative;right: 30%;}
+#title{position: relative;left: 10%;bottom: 150px; font-size: 50px; letter-spacing: 0.2em;}
+#english{font-size: 13px;letter-spacing: 3px;word-spacing: 5px;position: relative;left: 10%;bottom: 200px;}
+.words{
+    width: 500px;
+    position:relative;
+    left:13%;
+    top:30%;
+    text-align: center;
+    }
+.icon{color:white;width: 5%;text-align:center;position:absolute;right: 5%;top: 10px;background-color: rgb(25, 40, 76);}
+.icon_{color: white;text-decoration: none;}
+.icon_:hover{color: aqua;}
+.center{float: left;}
+.menu{float: left;background-color: rgb(21, 65, 146)}
+tr{height:50px;}
+td{width:500px;font-size: 25px;font-weight:400;text-decoration: none;text-align: center;}
+a:not(.icon_){text-decoration: none;color:white}
+a#five{text-decoration: underline;}
+a#one:hover{font-size: 35px;}
+a#two:hover{color: black;font-size: 30px;}
+a#three:hover{color: aquamarine ;font-size: 30px;}
+a#four:hover{color: red;font-size: 30px;}
+a#five:hover{color:blueviolets;font-size: 30px;}
+
+
+
+.catalog{
+    width: 100%;
+    height: 500px;
+    margin-top: 100px;
+    background-color: white;
+}
+.up,.down{margin-left: 5%;position: relative;left: 2%;}
+.one,.two,.three,.four{float: left;}
+.five,.six,.seven,.eight{float: left;}
+.one{width: 22.5%;height: 250px;background-color: aqua;}
+.two{width:22.5%;height:250px;background-color:aquamarine}
+.three{width:22.5%;height:250px;background-color: aqua;}
+.four{width:22.5%;height:250px;background-color:aquamarine}
+.five{width:22.5%;height:250px;background-color:aquamarine}
+.six{width: 22.5%;height:250px;background-color: aqua;}
+.seven{width:22.5%;height:250px;background-color:aquamarine}
+.eight{width:22.5%;height:250px;background-color: aqua;}
+.h{font-size: 30px;margin-left: 31%;}
+.ul{font-size: 20px;margin-top: 40px;margin-left: 25%;}
+.ol1{font-size: 20px;margin-top: 40px;margin-left: 25%;}
+.ol2{font-size: 20px;margin-top: 10%;margin-left: 10%;}
+
+
+
+.content{width: 90%;height: 2600px;margin-top: 50px;margin-left: 5%;}
+#third{margin-top: 50px;}
+#h1,#h2,#h3{
+           width: 80%;
+           height: 50px;
+           font-size: 30px;
+           padding-left: 3%;padding-top: 5px;
+           background-image: linear-gradient(90deg,rgb(142, 221, 196),white);
+}
+  #i1{margin-right: 4%;float: right;}
+  #i2{margin-right: 4%;float: right;}
+  #p1,#p2,#p3,#p4{margin-left: 2%;font-size: 25px;}
+    #p11,#p22{width:72%;font-size:20px;margin-left: 3%;text-indent:2em}
+    #p33,#p44{width:92%;font-size:20px;margin-left: 3%;text-indent:2em}
+  #p5,#p6,#p7{margin-left: 2%;font-size: 25px;}
+    #p55,#p66,#p77{width:92%;font-size:20px;margin-left: 2%;text-indent:2em}
+  #p8,#p9,#p10{margin-left: 3%;font-size: 25px;}
+    #p88,#p1010{width:92%;font-size:20px;margin-left: 2%;text-indent:2em}
+    #p991,#p992{width: 92%;font-size: 20px;margin-left: 3%;}
+      #p999{width:92%;margin-left: 4%;font-size: 18px;text-indent: 2em;}
+a.an{color: black;}
+a.bn{color: black;}
+a.an:hover{font-size: larger;}
+a.bn:hover{font-size: larger;}
+
+
+  
+.foot{
+  color: white;
+  width: 100%;
+  height: 250px;
+  background-color: rgb(59, 55, 55);
+}
+.image1,.p1{float: left;}
+.image2,.p2{float: left;}
+.image3,.p3{float: left;}
+#one1{position: relative;left: 19%;top: 15px;}
+#two2{position: relative;left: 22%;top: 15px;}
+#three3{position: relative;left: 25%;top: 15px;}
+hr{width: 65%;position: relative;top: 40px;}
+#four4{clear: left;position: relative;top: 30px;text-align: center;}
+
+
+
+
+
+

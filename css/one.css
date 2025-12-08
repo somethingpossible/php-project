@@ -1,0 +1,73 @@
+    /*代表人物*/
+    
+    body{
+        width: 100%;
+        height: 1200px;
+        text-align: center;
+        margin: 5px auto;
+    }
+    .top{
+        height: 200px;
+        width: 100%;
+        background-color: white;
+    }
+    .image{position: relative;right: 30%;}
+    #title{position: relative;left: 10%;bottom: 150px;}
+    #english{font-size: 13px;letter-spacing: 3px;word-spacing: 5px;position: relative;left: 10%;bottom: 200px;}
+    .words{
+        width: 500px;
+        position:relative;
+        left:13%;
+        top:23%;
+        font-size: 50px;
+        text-align: center;
+        letter-spacing: 0.2em;
+        }
+    .icon{color:white;width: 5%;text-align:center;position:absolute;right: 5%;top: 10px;background-color: rgb(25, 40, 76);}
+    .icon_{color: white;text-decoration: none;}
+    .icon_:hover{color: aqua;}
+    .center{float: left;}
+    table.menu{float: left;background-color: rgb(21, 65, 146)}
+    tr.menu{height:50px;}
+    td.menu{width:500px;font-size: 25px;font-weight:400;text-decoration: none;text-align: center;}
+    a.menu{text-decoration: none;}
+    a#self{text-decoration: underline;}
+    a.menu{color: white;}
+    a#one{text-decoration: underline;}
+    a#one:hover{font-size: 35px;}
+    a#self:hover{color: black;font-size: 30px;}
+    a#three:hover{color: aquamarine ;font-size: 30px;}
+    a#four:hover{color: red;font-size: 30px;}
+    a#five:hover{color:blueviolets;font-size: 30px;}
+    table.events{width:100%;position:relative;top:15%;}
+    .events{
+    font-size: 40px;
+    color: white;
+    }
+    .all{
+        height: 600px;
+        background-image: url(../images/one/one.jpg);
+        background-repeat: no-repeat;
+        background-size: 100% 650px;
+    }
+    a.events{color: white;text-decoration: none;}
+    a.events:hover{color: blue;}
+    .bottom{width: 100%;height:250px;background-color:aqua}
+    .one,.two,.three{float: left;margin: 2%;}
+    .one{margin-left: 15%;}
+    .foot{
+        color: white;
+        width: 100%;
+        height: 250px;
+        background-color: rgb(59, 55, 55);
+        /* margin-top: 5%; */
+   }
+   .image1,.p1{float: left;}
+   .image2,.p2{float: left;}
+   .image3,.p3{float: left;}
+   #one1{position: relative;left: 21%;top: 15px;}
+   #two2{position: relative;left: 24%;top: 15px;}
+   #three3{position: relative;left: 26%;top: 15px;}
+   hr{width: 65%;position: relative;top: 40px;}
+   #four4{position: relative;top: 40px;text-align: center;}
+   

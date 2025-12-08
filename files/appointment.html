@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>乒乓球馆预约系统</title>
+    <link rel="stylesheet" href="../css/appointment.css" type="text/css">
+</head>
+<body>
+    <div class="container">
+        <!-- 头部区域 -->
+        <div class="header">
+            <h1>乒乓球馆预约系统</h1>
+            <p>当前时间：{{current_time}}</p>
+        </div>
+
+        <!-- 消息提示 -->
+        {{if message}}
+        <div class="message">{{message}}</div>
+        {{endif}}
+
+        <!-- 预约表单区域 -->
+        {{if is_form}}
+        <div class="form-container">
+            <h2>{{form_title}}</h2>
+            <form method="POST">
+                <input type="hidden" name="table_id" value="{{table_id}}">
+                <div class="form-group">
+                    <label for="name">您的姓名</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                {{if is_book}}
+                <div class="form-group">
+                    <label for="duration">预约时长</label>
+                    <select id="duration" name="duration">
+                        <option value="1">1小时</option>
+                        <option value="2">2小时</option>
+                        <option value="3">3小时</option>
+                    </select>
+                </div>
+                {{else}}
+                <div class="form-group">
+                    <label>当前球员</label>
+                    <div>{{players}}</div>
+                </div>
+                {{endif}}
+                <button type="submit" class="btn btn-empty">确认提交</button>
+                <a href="?">返回球桌列表</a>
+            </form>
+        </div>
+        {{else}}
+        <!-- 球桌列表区域 -->
+        <div class="table-grid">
+            {{foreach $tables as $table}}
+            <div class="table-card status-{{$table.status}}">
+                <div class="table-name">球桌 #{{$table.id}}</div>
+                <span class="status-badge badge-{{$table.status}}">
+                    {{status_text[$table.status]}}
+                </span>
+                
+                {{if !empty($table.players)}}
+                <div class="table-info">
+                    <strong>当前球员：</strong>{{implode('、', $table.players)}}
+                </div>
+                {{endif}}
+                
+                {{if $table.status == 'empty'}}
+                <a href="?book={{$table.id}}" class="btn btn-empty">立即预约</a>
+                {{elseif $table.status == 'one'}}
+                <a href="?join={{$table.id}}" class="btn btn-one">加入拼桌</a>
+                {{else}}
+                <button class="btn btn-full" disabled>已预约</button>
+                {{endif}}
+            </div>
+            {{endforeach}}
+        </div>
+        {{endif}}
+    </div>
+</body>
+</html>

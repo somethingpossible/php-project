@@ -1,0 +1,66 @@
+  /*男单代表*/
+
+.all{
+      width: 100%;
+      height: 1570px;
+      background-color: rgb(173, 243, 243);
+    }
+  .top{height: 200px;position: relative;left:500px;}
+  .title{
+        font-family: 宋体;
+        letter-spacing: 0.5em;
+        font-size: 50px;
+        position: relative;
+        right: 5%;
+        top:75px;
+      }
+  .bg{
+        width: 150px;
+        height: 137.5px;
+        margin:auto;
+        padding-left:25px;
+        padding-top: 25px;
+        border-radius: 50%;
+        border: 2.5px solid #ccc;
+        background-image: url(../images/icon/icon_bg.jpg);
+        background-size: 150px;
+        position: relative;
+        bottom: 50px;
+      }
+  .sheet{
+        width: 112.5px;
+        height:131.25px;
+        text-align: center;
+        position: relative;
+        left: 5%;
+        bottom: 13%;
+  }
+  p{
+   height: 2px;
+   font-size: 15px;
+   letter-spacing: 0.7em;
+  }
+  a{text-decoration: none;
+    color: black;}
+  a:hover{color: blue;}
+  .content{width: 90%;height: 1300px;margin-left: 5%;background-color: white;}
+  span{font-size: 30px;color: rgb(55, 234, 234);}
+  .one_right,.two_left,.three_right,.four_left{letter-spacing: 0;font-size: 20px;}
+  .one{width:100%;height: 260px;}
+  .two{width: 100%;height: 340px;}
+  .three{width: 100%;height: 260px;}
+  .four{width: 100%;height: 350px;}
+  .one_left{margin-left: 3%;height:280px;margin-top: 1%;}
+  .one_right{float: right;width:60%;height: 260px;margin-top:40px;margin-right: 5%;}
+  .two_left{float: left;width: 60%;margin-left: 5%;}
+  .two_right{float: right;height:270px;position: relative;bottom: 10px;margin-right: 3%;}
+  .three_left{float: left;margin-left: 3%;height: 260px;margin-top: 50px;}
+  .three_right{float: right;width: 60%;height:270px;margin-right: 5%;position: relative;top:30px;}
+  .four_left{float: left;width: 55%;height: 245px;margin-left: 5%;position: relative;bottom: 20px;}
+  .four_right{float: right;position: relative;top: 20px;margin-right: 3%;height: 260px;}
+  .back{
+      font-size: 30px;
+      clear: both;
+      margin-top: 20px;
+      text-align: center;
+  }

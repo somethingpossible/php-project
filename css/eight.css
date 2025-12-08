@@ -1,0 +1,74 @@
+   /*女单代表*/
+
+*{margin: 0;padding: 0;}
+.all{
+   width: 100%;
+   height: 1830px;
+   background-color: rgb(173, 243, 243);
+ }
+ .top{
+   width: 100%;
+   height: 200px;
+   .title{
+      font-family: 宋体;
+      letter-spacing: 0.5em;
+      font-size: 50px;
+      position: relative;
+      bottom: 100px;
+      left: 45%;
+   }
+}
+.icon{
+   width: 180px;
+   height: 160px;
+   margin: 12.5px auto;
+   border-radius: 50%;
+   border: 2.5px solid #ccc;
+   background-image: url(../images/icon/icon_bg.jpg);
+   background-size: 150px;
+   position: relative;
+   top: 3%;
+   right: 35%;
+}
+.sheet{
+width: 112.5px;
+height:131.25px;
+position: relative;
+top: 19px;
+left: 18%;
+}
+#events{
+text-align: center;
+height: 17.2875px;
+font-size: 15px;
+letter-spacing: 0.6em;
+} 
+a{text-decoration: none;
+  color: black;}
+a:hover{color: blue;}
+.content{width: 90%;height: 1530px;margin-left: 5%;background-color: white;}
+span{font-size: 30px;color: rgb(55, 234, 234);}
+.one_right,.two_left,.three_right,.four_left{letter-spacing: 0;font-size: 20px;}
+.one{width:100%;height: 300px;}
+.two{width: 100%;height: 400px;margin-top: 10px;}
+.three{width: 100%;height: 370px;}
+.four{width: 100%;height: 400px;}
+.one_left{margin-top: 25px;margin-left: 3%;}
+.one_right{float: right;width:60%;height: 250px;margin-top:10px;margin-right: 5%;}
+.two_left{float: left;width: 60%;margin-left: 5%;margin-top: 15px;}
+.two_right{float: right;position: relative;bottom: 80px;margin-right: 3%;}
+.three_left{float: left;margin-top: 50px;margin-left: 3%;}
+.three_right{float: right;width: 60%;height:270px;margin-right: 5%;position: relative;bottom: 50px;}
+.four_left{float: left;width: 55%;height: 245px;margin-left: 5%;}
+.four_right{float: right;margin-top: 60px;margin-right: 3%;}
+.back{
+    font-size: 30px;
+    clear: both;
+    margin-top: 20px;
+}
+.back{
+   font-size: 30px;
+   clear: both;
+   margin-top: 20px;
+   text-align: center;
+}
