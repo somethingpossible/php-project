@@ -1,0 +1,12 @@
+body { font-family: Arial, sans-serif; background:#f8f8f8; color:#333; }
+.container { max-width:900px; margin:40px auto; background:#fff; padding:20px; box-shadow:0 2px 6px rgba(0,0,0,.05); }
+header h1 { margin:0 0 10px 0; }
+.notes { list-style:none; padding:0; }
+.notes li { border-bottom:1px solid #eee; padding:10px 0; }
+.form-group { margin-bottom:10px; }
+.form-group input, .form-group textarea { width:100%; padding:8px; box-sizing:border-box; }
+.button, button { background:#007bff; color:#fff; padding:8px 12px; text-decoration:none; border:none; border-radius:3px; cursor:pointer; }
+.button.muted { background:#6c757d; }
+.flash { padding:8px 12px; margin-bottom:12px; border-radius:4px; }
+.flash.success { background:#e6ffed; color:#155724; }
+.flash.error { background:#ffe6e6; color:#721c24; }
