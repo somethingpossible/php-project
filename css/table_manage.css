@@ -1,0 +1,52 @@
+/* 新增状态标签样式（适配人数已满） */
+.badge-full-admin {
+    background-color: #dc3545;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+.badge-one-admin {
+    background-color: #ffc107;
+    color: #333;
+    padding: 6px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+.badge-empty-admin {
+    background-color: #28a745;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+/* 删除球桌按钮样式 */
+.delete-table-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.delete-table-btn:hover {
+    background-color: #c82333;
+}
+
+.table-manage-card {
+    position: relative;
+    margin-bottom: 20px;
+    padding: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}

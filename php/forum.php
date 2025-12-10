@@ -142,6 +142,7 @@ $offset = ($current_page - 1) * $page_size;
 $stmt = $pdo->prepare("
     SELECT id, title, username, content, images, created_at, updated_at, comment_count
     FROM forum_posts
+    WHERE delete_type = 'none' 
     ORDER BY updated_at DESC
     LIMIT :offset, :page_size
 ");
@@ -180,6 +181,7 @@ $message = $_GET['message'] ?? $message;
                 <a href="logout.php" style="margin-left: 15px; color: #dc3545;">退出登录</a>
             </div>
             <div class="nav">
+                <a href="../indexs.php">主页面</a>
                 <a href="appointment.php">球桌预约</a>
                 <a href="forum.php" class="active">论坛首页</a>
             </div>

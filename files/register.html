@@ -1,32 +1,308 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>报名参训</title>
-        <link rel="stylesheet" href="../css/register.css" type="text/css">
-    </head>
-    <body>
-        <div class="all">
-            <div class="body">
-                 <a href="../index.html"> <img src="../images/five/icon.png" class="icon"></a>
-                 <div class="title"><h1>乐动球馆注册</h1></div>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>乐动球馆注册</title>
+    <style>
+        /* 原有样式保留 */
+        .form-group {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .form-group label {
+            width: 80px;
+            text-align: right;
+            margin-right: 10px;
+            font-weight: 500;
+        }
+        .form-control {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 250px;
+            box-sizing: border-box;
+        }
+        .form-control:focus {
+            outline: none;
+            border-color: #28a745;
+            box-shadow: 0 0 0 2px rgba(40,167,69,0.25);
+        }
+        .sex-group {
+            margin-left: 90px;
+            display: flex;
+            gap: 15px;
+        }
+        .sex-group input {
+            margin-right: 5px;
+        }
+        .btn-reset {
+            padding: 8px 15px;
+            background-color: #6c757d;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+            transition: background-color 0.3s;
+        }
+        .btn-reset:hover {
+            background-color: #5a6268;
+        }
+        .submit {
+            margin-left: 90px;
+            margin-top: 20px;
+        }
+        .submit input {
+            padding: 10px 30px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .submit input:hover {
+            background-color: #218838;
+        }
+        .message {
+            margin: 0 0 15px 90px;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 14px;
+            width: 250px;
+            box-sizing: border-box;
+        }
+        .message.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .remark {
+            margin-left: 90px;
+            font-size: 12px;
+            color: #666;
+            margin-top: 5px;
+        }
+        /* 新增：手机号验证提示样式 */
+        .phone-tip {
+            margin-left: 90px;
+            font-size: 12px;
+            margin-top: 5px;
+            height: 16px; /* 固定高度避免页面抖动 */
+        }
+        /* 响应式适配 */
+        @media (max-width: 450px) {
+            .form-group {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .form-group label {
+                width: 100%;
+                text-align: left;
+                margin-bottom: 5px;
+            }
+            .sex-group, .submit, .message, .remark, .phone-tip {
+                margin-left: 0;
+            }
+            .form-control {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="all">
+        <div class="body">
+            <a href="../indexs.php">
+                <img src="../images/five/icon.png" class="icon" alt="乐动球馆logo">
+            </a>
+            <div class="title">
+                <h1>乐动球馆注册</h1>
+            </div>
             <div class="form">
-                <form action="../php/register.php" method="post" name="乒乓球训练报名">
-                  &nbsp;&nbsp;  <label for="username">姓名:</label>   <input type="text"  name="username" id="name"  /></br>
-                  &nbsp;&nbsp;  <label for="password">密码:</label>
-                  <input type="password" name="password" placeholder="密码" required><br>
-                  <input type="password" name="confirm_password" placeholder="确认密码" id="check" required><br>
-                  &nbsp;&nbsp;  性别：   <input type="radio"  name="sex" checked="checked" value="male" id="nan" /> <label for="nan">男</label>
-                                         <input type="radio"  name="sex" value="female" id="nv" /> <label for="nv">女 <br></label>
-                  &nbsp;&nbsp;  <label for="age">年龄:</label>    <input type="text" maxlength="3" name="age" id="age"  /><br>
-                  &nbsp;&nbsp;  <label for="approach">联系方式:</label> <input type="text" name="approach" id="approach"> <input type="reset"> <br><br>
-                <div class="submit">
-                  <input type="submit">
-                </div>
-                <!-- <br> -->
+                <!-- 显示后端返回的错误信息 -->
+                <?php if (isset($_GET['message'])): ?>
+                    <div class="message error">
+                        <?= htmlspecialchars($_GET['message']) ?>
+                    </div>
+                <?php endif; ?>
+
+                <form action="../php/register.php" method="post" name="registerForm" onsubmit="return validateForm()">
+                    <!-- 姓名 -->
+                    <div class="form-group">
+                        <label for="username">姓名:</label>
+                        <input type="text" name="username" id="username" class="form-control" placeholder="请输入真实姓名" required>
+                    </div>
+
+                    <!-- 密码 -->
+                    <div class="form-group">
+                        <label for="password">密码:</label>
+                        <input type="password" name="password" id="password" class="form-control" placeholder="6-20位密码" required>
+                    </div>
+
+                    <!-- 确认密码 -->
+                    <div class="form-group">
+                        <label for="confirm_pwd">确认密码:</label>
+                        <input type="password" name="confirm_pwd" id="confirm_pwd" class="form-control" placeholder="再次输入密码" required>
+                    </div>
+
+                    <!-- 性别 -->
+                    <div class="form-group">
+                        <label>性别:</label>
+                        <div class="sex-group">
+                            <input type="radio" name="sex" checked="checked" value="male" id="nan">
+                            <label for="nan">男</label>
+                            <input type="radio" name="sex" value="female" id="nv">
+                            <label for="nv">女</label>
+                        </div>
+                    </div>
+
+                    <!-- 年龄 -->
+                    <div class="form-group">
+                        <label for="age">年龄:</label>
+                        <input type="text" name="age" id="age" class="form-control" maxlength="3" placeholder="1-120" required>
+                        <div class="remark">提示：仅支持数字格式</div>
+                    </div>
+
+                    <!-- 联系方式（手机号） -->
+                    <div class="form-group">
+                        <label for="approach">手机号:</label>
+                        <input type="text" name="approach" id="approach" class="form-control" placeholder="请输入手机号" required>
+                        <input type="reset" class="btn-reset" value="重置">
+                        <div class="remark">提示：手机号唯一，将用于登录和接收通知</div>
+                    </div>
+                    <!-- 新增：手机号验证提示容器 -->
+                    <div class="phone-tip" id="phoneTip"></div>
+
+                    <!-- 注册说明 -->
+                    <div class="remark" style="margin-top: 10px;">
+                        注：注册成功后将自动生成8位纯数字登录账号，支持账号或手机号登录！
+                    </div>
+
+                    <!-- 提交按钮 -->
+                    <div class="submit">
+                        <input type="submit" name="register" value="提交注册">
+                    </div>
                 </form>
             </div>
-            </div>
         </div>
-    </body>
+    </div>
+
+    <!-- 前端表单验证 + AJAX手机号验证 -->
+    <script>
+        // 原有表单验证函数保留
+        function validateForm() {
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            const confirmPwd = document.getElementById('confirm_pwd').value;
+            const age = document.getElementById('age').value.trim();
+            const approach = document.getElementById('approach').value.trim();
+
+            // 姓名验证
+            if (username === '' || username.length > 20) {
+                alert('姓名不能为空且不超过20字符！');
+                return false;
+            }
+
+            // 密码验证
+            if (password.length < 6 || password.length > 20) {
+                alert('密码长度需为6-20位！');
+                return false;
+            }
+            if (password !== confirmPwd) {
+                alert('两次密码输入不一致！');
+                return false;
+            }
+
+            // 年龄验证
+            const ageNum = parseInt(age);
+            if (isNaN(ageNum) || ageNum < 1 || ageNum > 120) {
+                alert('年龄需为1-120之间的有效数字！');
+                return false;
+            }
+
+            // 手机号验证
+            const phoneReg = /^1[3-9]\d{9}$/;
+            if (!phoneReg.test(approach)) {
+                alert('请输入有效的手机号！');
+                return false;
+            }
+
+            // 额外检查：AJAX验证结果是否为可用
+            const phoneTip = document.getElementById('phoneTip').innerText;
+            if (phoneTip.includes('已注册')) {
+                alert('该手机号已被注册，请更换！');
+                return false;
+            }
+
+            return true;
+        }
+
+        // ---------------- 新增：AJAX手机号唯一性验证 ----------------
+        // 1. 获取手机号输入框和提示容器
+        const phoneInput = document.getElementById('approach');
+        const phoneTip = document.getElementById('phoneTip');
+
+        // 2. 给手机号输入框绑定失焦事件（离开输入框时触发）
+        phoneInput.addEventListener('blur', function() {
+            const phone = this.value.trim();
+            const phoneReg = /^1[3-9]\d{9}$/;
+            
+            // 先做前端格式验证，格式不对不发请求
+            if (!phoneReg.test(phone)) {
+                phoneTip.innerHTML = '<span style="color:#ff7f0e;">请输入有效的11位手机号</span>';
+                return;
+            }
+
+            // 清空之前的提示
+            phoneTip.innerHTML = '<span style="color:#666;">正在验证...</span>';
+
+            // 3. 创建AJAX请求
+            const xhr = new XMLHttpRequest();
+            // 配置请求：POST方式，请求地址为check_phone.php，异步
+            xhr.open('POST', '../php/check_phone.php', true);
+            // 设置请求头（表单格式）
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            
+            // 4. 监听请求状态变化
+            xhr.onreadystatechange = function() {
+                // 请求完成且成功
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    try {
+                        // 解析后端返回的JSON数据
+                        const res = JSON.parse(xhr.responseText);
+                        if (res.code === 0) {
+                            // 手机号可用
+                            phoneTip.innerHTML = '<span style="color:green;">✅ 手机号可用</span>';
+                        } else if (res.code === 1) {
+                            // 手机号已注册
+                            phoneTip.innerHTML = '<span style="color:red;">❌ 该手机号已注册</span>';
+                        } else {
+                            // 其他错误
+                            phoneTip.innerHTML = `<span style="color:#ff7f0e;">${res.msg}</span>`;
+                        }
+                    } catch (e) {
+                        // 解析失败
+                        phoneTip.innerHTML = '<span style="color:#ff7f0e;">验证失败，请重试</span>';
+                    }
+                } else if (xhr.readyState === 4 && xhr.status !== 200) {
+                    // 请求失败
+                    phoneTip.innerHTML = '<span style="color:#ff7f0e;">网络错误，请重试</span>';
+                }
+            };
+
+            // 5. 发送请求（传递手机号参数）
+            xhr.send('phone=' + encodeURIComponent(phone));
+        });
+
+        // 可选：输入手机号时清空提示（提升体验）
+        phoneInput.addEventListener('input', function() {
+            phoneTip.innerHTML = '';
+        });
+    </script>
+</body>
 </html>

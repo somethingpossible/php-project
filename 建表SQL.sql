@@ -17,21 +17,47 @@ create index idx_comments_post_id
 create index idx_comments_user_id
     on forum_comments (user_id);
 
+create table forum_likes
+(
+    id         int auto_increment comment '点赞ID'
+        primary key,
+    user_id    int                                 not null comment '点赞用户ID（关联users表）',
+    post_id    int                                 not null comment '被点赞帖子ID（关联forum_posts表）',
+    created_at timestamp default CURRENT_TIMESTAMP not null comment '点赞时间',
+    constraint uk_user_post
+        unique (user_id, post_id) comment '唯一约束：同一用户不能重复点赞同一帖子'
+)
+    comment '帖子点赞表' engine = InnoDB
+                         charset = utf8mb4;
+
+create index idx_likes_post_id
+    on forum_likes (post_id);
+
+create index idx_likes_user_id
+    on forum_likes (user_id);
+
 create table forum_posts
 (
     id            int auto_increment comment '帖子ID'
         primary key,
-    user_id       int                                     not null comment '发布用户ID（关联users表）',
-    username      varchar(50)                             not null comment '发布用户名',
-    title         varchar(255)                            not null comment '帖子标题',
-    content       text                                    not null comment '帖子内容',
-    created_at    timestamp     default CURRENT_TIMESTAMP not null comment '发布时间',
-    updated_at    timestamp     default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '最后更新时间（含回复时间）',
-    comment_count int           default 0                 null comment '评论数',
-    images        varchar(1000) default ''                null comment '帖子图片路径（相对路径，逗号分隔）'
+    user_id       int                                                      not null comment '发布用户ID（关联users表）',
+    username      varchar(50)                                              not null comment '发布用户名',
+    title         varchar(255)                                             not null comment '帖子标题',
+    content       text                                                     not null comment '帖子内容',
+    created_at    timestamp                      default CURRENT_TIMESTAMP not null comment '发布时间',
+    updated_at    timestamp                      default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP comment '最后更新时间（含回复时间）',
+    comment_count int                            default 0                 null comment '评论数',
+    like_count    int                            default 0                 null comment '点赞数',
+    images        varchar(1000)                  default ''                null comment '帖子图片路径（相对路径，逗号分隔）',
+    delete_type   enum ('none', 'self', 'admin') default 'none'            not null comment '删除类型：none=未删除，self=用户自删，admin=管理员删除',
+    deleted_at    datetime                                                 null comment '删除时间',
+    deleted_by    int                                                      null comment '删除人ID（0=系统）'
 )
     comment '乒乓论坛帖子表' engine = InnoDB
                              charset = utf8mb4;
+
+create index idx_forum_posts_delete_type
+    on forum_posts (delete_type);
 
 create index idx_posts_updated_at
     on forum_posts (updated_at);
@@ -40,9 +66,12 @@ create table table_reservations
 (
     id         int auto_increment
         primary key,
+    name       varchar(50)                                             not null comment '球桌名称（例如：一号桌、VIP区二号桌）',
     status     enum ('empty', 'one', 'full') default 'empty'           not null comment '球桌状态：empty-空桌，one-1人，full-满员',
     created_at timestamp                     default CURRENT_TIMESTAMP not null,
-    updated_at timestamp                     default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP
+    updated_at timestamp                     default CURRENT_TIMESTAMP not null on update CURRENT_TIMESTAMP,
+    constraint idx_table_name
+        unique (name)
 )
     comment '乒乓球桌信息表' engine = InnoDB
                              charset = utf8mb4;
@@ -81,13 +110,23 @@ create table tables
 
 create table users
 (
-    id       int auto_increment
+    id         int auto_increment
         primary key,
-    username varchar(50)  not null,
-    password varchar(255) not null,
-    sex      varchar(10)  not null,
-    age      varchar(3)   not null,
-    approach varchar(15)  not null,
+    account    varchar(20)                            not null comment '随机生成的唯一账号（用于登录）',
+    username   varchar(50)                            not null,
+    nickname   varchar(50)  default ''                null comment '用户昵称',
+    avatar     varchar(255) default ''                null comment '用户头像路径',
+    phone      varchar(20)  default ''                null comment '手机号',
+    created_at timestamp    default CURRENT_TIMESTAMP not null comment '注册时间',
+    password   varchar(255)                           not null,
+    sex        varchar(10)                            not null,
+    age        varchar(3)                             not null,
+    approach   varchar(15)                            not null,
+    role       varchar(20)  default 'user'            not null comment '用户角色：admin=管理员，user=普通用户',
+    constraint idx_users_account
+        unique (account),
+    constraint idx_users_approach
+        unique (approach),
     constraint username
         unique (username)
 );

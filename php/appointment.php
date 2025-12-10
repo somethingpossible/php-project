@@ -22,6 +22,20 @@
         
         require __DIR__ . '/db_connect.php';
 
+        // ===================== 新增：管理员权限判断 =====================
+        // 1. 查询当前用户的角色（假设 users 表中有 role 字段：admin=管理员，user=普通用户）
+        $stmt = $pdo->prepare("SELECT role FROM users WHERE id = :user_id");
+        $stmt->bindValue(':user_id', $current_user_id, PDO::PARAM_INT);
+        $stmt->execute();
+        $user_role = $stmt->fetchColumn() ?? 'user'; // 默认普通用户
+
+        // 2. 如果是管理员，跳转到球桌管理界面（需自行创建 table_manage.php）
+        if ($user_role === 'admin') {
+            header("Location: table_manage.php?message=" . urlencode("管理员已进入球桌管理模式"));
+            exit;
+        }
+        // ==============================================================
+
         // 1. 处理预约操作（点击立即预约）
         if (isset($_GET['reserve'])) {
             $table_id = (int)$_GET['reserve'];

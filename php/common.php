@@ -89,4 +89,29 @@ function clearUserSession() {
     // 可选：销毁整个 Session（如果不需要保留其他 Session 数据）
     // session_destroy();
 }
+
+/**
+ * 判断用户是否为管理员
+ * @param int $user_id 用户ID
+ * @return bool true=管理员，false=普通用户
+ */
+function isAdmin($user_id) {
+    global $pdo; // 或重新连接数据库（根据common.php现有逻辑调整）
+    
+    // 方式1：如果common.php已连接数据库，直接使用全局$pdo
+    $stmt = $pdo->prepare("SELECT role FROM users WHERE id = :user_id");
+    $stmt->execute([':user_id' => $user_id]);
+    $role = $stmt->fetchColumn() ?? 'user';
+    
+    return $role === 'admin';
+
+    // 方式2：如果common.php未连接数据库，重新连接
+    /*
+    require __DIR__ . '/db_connect.php';
+    $stmt = $pdo->prepare("SELECT role FROM users WHERE id = :user_id");
+    $stmt->execute([':user_id' => $user_id]);
+    $role = $stmt->fetchColumn() ?? 'user';
+    return $role === 'admin';
+    */
+}
 ?>

@@ -88,9 +88,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['upload_avatar'])) {
     }
 }
 
-// 查询用户完整信息
+// 查询用户完整信息（新增查询 account 字段）
 $stmt = $pdo->prepare("
-    SELECT id, username, nickname, avatar, phone, created_at 
+    SELECT id, username, account, nickname, avatar, phone, created_at 
     FROM users 
     WHERE id = :user_id
 ");
@@ -104,12 +104,17 @@ $current_avatar = $has_avatar ? '../' . $user_info['avatar'] : '../images/defaul
 $avatar_original = $has_avatar ? '../' . $user_info['avatar'] : ''; // 原图路径（无头像时为空）
 
 // 统计用户相关数据
-// 1. 发帖数
-$stmt = $pdo->prepare("SELECT COUNT(*) AS post_count FROM forum_posts WHERE user_id = :user_id");
+// 1. 发帖数（正常帖子）
+$stmt = $pdo->prepare("SELECT COUNT(*) AS post_count FROM forum_posts WHERE user_id = :user_id AND delete_type = 'none'");
 $stmt->execute([':user_id' => $user_id]);
 $post_count = $stmt->fetch()['post_count'];
 
-// 2. 点赞数（用户收到的总点赞）
+// 2. 已删除帖子数（新增）
+$stmt = $pdo->prepare("SELECT COUNT(*) AS deleted_post_count FROM forum_posts WHERE user_id = :user_id AND delete_type != 'none'");
+$stmt->execute([':user_id' => $user_id]);
+$deleted_post_count = $stmt->fetch()['deleted_post_count'];
+
+// 3. 点赞数（用户收到的总点赞）
 $stmt = $pdo->prepare("
     SELECT COUNT(f_l.id) AS like_count 
     FROM forum_likes f_l
@@ -119,12 +124,12 @@ $stmt = $pdo->prepare("
 $stmt->execute([':user_id' => $user_id]);
 $received_like_count = $stmt->fetch()['like_count'];
 
-// 3. 评论数
+// 4. 评论数
 $stmt = $pdo->prepare("SELECT COUNT(*) AS comment_count FROM forum_comments WHERE user_id = :user_id");
 $stmt->execute([':user_id' => $user_id]);
 $comment_count = $stmt->fetch()['comment_count'];
 
-// 4. 用户点赞的帖子数
+// 5. 用户点赞的帖子数
 $stmt = $pdo->prepare("SELECT COUNT(*) AS my_like_count FROM forum_likes WHERE user_id = :user_id");
 $stmt->execute([':user_id' => $user_id]);
 $my_like_count = $stmt->fetch()['my_like_count'];
@@ -163,6 +168,38 @@ $message = $_GET['message'] ?? $message;
             color: #666;
             font-size: 14px;
         }
+        /* 新增：已删除帖子统计项样式 */
+        .stat-item.deleted {
+            background: #fef7fb;
+        }
+        .stat-number.deleted {
+            color: #dc3545;
+        }
+        /* 新增：功能按钮样式调整 */
+        .profile-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .profile-btn.deleted {
+            background-color: #f8d7da;
+            color: #721c24;
+            border-color: #f5c6cb;
+        }
+        .profile-btn.deleted:hover {
+            background-color: #f0c1c7;
+        }
+        /* 账号显示样式优化 */
+        .profile-meta .account-item {
+            color: #007bff;
+            font-weight: 500;
+        }
+        .profile-meta .account-tip {
+            font-size: 12px;
+            color: #999;
+            margin-left: 8px;
+        }
     </style>
 </head>
 <body>
@@ -170,6 +207,7 @@ $message = $_GET['message'] ?? $message;
         <div class="header">
             <h1>个人信息中心</h1>
             <div class="nav">
+                <a href="../indexs.php">主页面</a>
                 <a href="appointment.php">球桌预约</a>
                 <a href="forum.php">乒乓论坛</a>
                 <a href="profile.php" class="active">个人中心</a>
@@ -209,6 +247,11 @@ $message = $_GET['message'] ?? $message;
                         <h2><?= htmlspecialchars($user_info['nickname']) ?></h2>
                         <div class="profile-meta">
                             <div>用户名：<?= htmlspecialchars($user_info['username']) ?></div>
+                            <!-- 新增：显示登录账号 -->
+                            <div>
+                                登录账号：<span class="account-item"><?= htmlspecialchars($user_info['account']) ?></span>
+                                <span class="account-tip">(用于登录，不可修改)</span>
+                            </div>
                             <div>用户ID：<?= $user_info['id'] ?></div>
                             <div>注册时间：<?= date('Y-m-d H:i', strtotime($user_info['created_at'])) ?></div>
                             <div>手机号：<?= empty($user_info['phone']) ? '未绑定' : htmlspecialchars($user_info['phone']) ?></div>
@@ -223,7 +266,7 @@ $message = $_GET['message'] ?? $message;
                 </div>
             </form>
 
-            <!-- 数据统计 -->
+            <!-- 数据统计（新增已删除帖子统计） -->
             <div class="stat-card">
                 <div class="stat-item">
                     <div class="stat-number"><?= $post_count ?></div>
@@ -241,9 +284,13 @@ $message = $_GET['message'] ?? $message;
                     <div class="stat-number"><?= $my_like_count ?></div>
                     <div class="stat-label">我的点赞</div>
                 </div>
+                <div class="stat-item deleted">
+                    <div class="stat-number deleted"><?= $deleted_post_count ?></div>
+                    <div class="stat-label">已删除帖子</div>
+                </div>
             </div>
 
-            <!-- 功能按钮 -->
+            <!-- 功能按钮（新增查看删除帖子入口） -->
             <div class="profile-actions">
                 <a href="profile_posts.php" class="profile-btn">
                     <i>📝</i> 我的发帖
@@ -253,6 +300,9 @@ $message = $_GET['message'] ?? $message;
                 </a>
                 <a href="profile_comments.php" class="profile-btn secondary">
                     <i>💬</i> 我的评论
+                </a>
+                <a href="profile_deleted_posts.php" class="profile-btn deleted">
+                    <i>🗑️</i> 查看删除帖子
                 </a>
             </div>
         </div>
