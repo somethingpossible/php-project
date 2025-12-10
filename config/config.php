@@ -1,33 +1,15 @@
 <?php
-namespace App;
+return [
+    'base_url' => 'http://localhost', // 修改为你的 base url
+    'db' => [
+        'host' => '127.0.0.1',
+        'dbname' => 'your_db',
+        'user' => 'your_user',
+        'pass' => 'your_pass',
+        'charset' => 'utf8mb4',
+    ],
+    // 兼容旧代码用常量（可选）
+    'BASE_URL' => 'http://localhost',
+];
 
-class Config
-{
-    public static function dbPath()
-    {
-        return __DIR__ . '/../data/database.sqlite';
-    }
-
-    public static function pdo()
-    {
-        static $pdo;
-        if ($pdo) return $pdo;
-        $path = self::dbPath();
-        if (!file_exists(dirname($path))) {
-            mkdir(dirname($path), 0755, true);
-        }
-        $dsn = 'sqlite:' . $path;
-        $pdo = new \PDO($dsn);
-        $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-        // Ensure notes table exists (simple migration)
-        $pdo->exec("CREATE TABLE IF NOT EXISTS notes (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            title TEXT NOT NULL,
-            content TEXT,
-            created_at TEXT
-        )");
-        return $pdo;
-    }
-}
-
-?>
+define('BASE_URL', 'http://localhost');
